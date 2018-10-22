@@ -26,5 +26,5 @@ app.add_url_rule('/review_prj_review_status',view_func=prjquality.review_prj_rev
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0')
     #prjreview()
