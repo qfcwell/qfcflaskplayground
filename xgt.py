@@ -2,7 +2,7 @@
 import os
 from tablepage import *
 
-excel='./static/流程-效果图制作.xlsx'
+excel='./static/流程-效果图制作1.xlsx'
 
 def xgt1():
     name='效果图制作（内部）'
@@ -17,7 +17,7 @@ def xgt1():
     h.set_nav_lst1([('通用','#'),('运营','#'),('经营','#'),('财务','#'),('人力资源','#'),('市场品牌推广','#'),('采购','#'),('知识产权','#'),('法务','#'),('其他','#')])
     h.set_nav_lst2(index=1,lst=[('盖章申请流程','#'),('……','#'),('……','#')])
     h.set_nav_lst2(index=2,lst=[('效果图制作','#'),('……','#'),('……','#')],active=1)
-    h.set_tab2(lst=[('效果图制作（内部）','./xgt1'),('效果图制作（外包）','./xgt2'),('3D打印（工程）','./3dp1'),('航拍（工程）','./hp1'),('3D打印（部门）','./3dp2'),('航拍（部门）','./hp2')],active=1)
+    h.set_tab2(lst=[('效果图制作（内部）','./xgt1'),('效果图制作（外包）','./xgt2'),('3D打印','./3dp1'),('航拍','./hp1')],active=1)
     h.set_selection()
     h.set_tabletitle(['效果图制作申请一览表（内部）',
         a('查看预约情况',cl="under-line",style="font-weight: normal;font-size: 12px;"),
@@ -469,7 +469,7 @@ def xgt2():
     h.set_nav_lst1([('通用','#'),('运营','#'),('经营','#'),('财务','#'),('人力资源','#'),('市场品牌推广','#'),('采购','#'),('知识产权','#'),('法务','#'),('其他','#')])
     h.set_nav_lst2(index=1,lst=[('盖章申请流程','#'),('……','#'),('……','#')])
     h.set_nav_lst2(index=2,lst=[('效果图制作','#'),('……','#'),('……','#')],active=1)
-    h.set_tab2(lst=[('效果图制作（内部）','./xgt1'),('效果图制作（外包）','./xgt2'),('3D打印（工程）','./3dp1'),('航拍（工程）','./hp1'),('3D打印（部门）','./3dp2'),('航拍（部门）','./hp2')],active=2)
+    h.set_tab2(lst=[('效果图制作（内部）','./xgt1'),('效果图制作（外包）','./xgt2'),('3D打印','./3dp1'),('航拍','./hp1')],active=2)
     h.set_selection()
     h.set_tabletitle(['效果图制作申请一览表（外包）',
         button(span(cl="glyphicon glyphicon-plus",aria_hidden="true"),'发起流程',type="button",cl="btn btn-default btn-xs btn-red right-buttons",id="open")])
@@ -945,7 +945,7 @@ def xgt2():
 
 
 def ThreeDPrinting1():
-    name='3D打印（工程）'
+    name='3D打印'
     h=CapolHtml_TablePage()
     h.head.addObj(meta)
     h.head.addObj(icon)
@@ -958,9 +958,9 @@ def ThreeDPrinting1():
     h.set_nav_lst1([('通用','#'),('运营','#'),('经营','#'),('财务','#'),('人力资源','#'),('市场品牌推广','#'),('采购','#'),('知识产权','#'),('法务','#'),('其他','#')])
     h.set_nav_lst2(index=1,lst=[('盖章申请流程','#'),('……','#'),('……','#')])
     h.set_nav_lst2(index=2,lst=[('效果图制作','#'),('……','#'),('……','#')],active=1)
-    h.set_tab2(lst=[('效果图制作（内部）','./xgt1'),('效果图制作（外包）','./xgt2'),('3D打印（工程）','./3dp1'),('航拍（工程）','./hp1'),('3D打印（部门）','./3dp2'),('航拍（部门）','./hp2')],active=3)
+    h.set_tab2(lst=[('效果图制作（内部）','./xgt1'),('效果图制作（外包）','./xgt2'),('3D打印','./3dp1'),('航拍','./hp1')],active=3)
     h.set_selection()
-    h.set_tabletitle(['3D打印申请一览表（工程）',
+    h.set_tabletitle(['3D打印申请一览表',
         button(span(cl="glyphicon glyphicon-plus",aria_hidden="true"),'发起流程',type="button",cl="btn btn-default btn-xs btn-red right-buttons",id="open")])
     t=table()
     t.attributes=h.table.attributes
@@ -974,18 +974,34 @@ def ThreeDPrinting1():
                     <table class="table table-bordered">
                         <tbody>
                             <tr class="title">
-                                <th colspan="8" style="background:url(http://cip.capol.cn/capol/homepage/resource/img/logo.png)no-repeat;">3D打印申请单（工程）</th>
+                                <th colspan="8" style="background:url(http://cip.capol.cn/capol/homepage/resource/img/logo.png)no-repeat;">3D打印申请单</th>
                             </tr>
                             <tr>
+                                <td class="bold" style="width:12%">申请类型</td>
+                                <td class="bold" style="width:88%;text-align:left;padding-left:10px;" colspan="7">
+                                    <label class="radio-inline">
+                                        <input class="sm" type="radio" name="isprj" value="1" checked="checked">工程</label>
+                                    <label class="radio-inline">
+                                        <input class="sm" type="radio" name="isprj" id="noprj" value="0">非工程</label>
+                                </td>
+                            </tr>
+                            <tr id="table_prj">
                                 <td class="bold" style="width:12%">工程编号</td>
                                 <td style="width:12%">
-                                    <input class="form-control select" type="text" id="prjno" value="GC160019">
+                                    <input class="form-control select" type="text" id="prjno">
                                 </td>
                                 <td class="bold" style="width:12%">工程名称</td>
                                 <td style="width:64%" colspan="5">
-                                    <input class="form-control select" type="text" id="prjname" value="深业世纪山谷城市更新单元">
+                                    <input class="form-control select" type="text" id="prjname">
                                 </td>
                             </tr>
+                            <tr id="table_noprj" style="display:none;">
+                                <td class="bold" style="width:12%">航拍内容</td>
+                                <td class="bold" style="width:88%;" colspan="7">
+                                     <input class="form-control select" type="text" id="">
+                                </td>
+                            </tr>
+                            
                             <tr>
                                 <td class="bold" style="width:12%">所属公司</td>
                                 <td style="width:12%">深圳公司</td>
@@ -1037,7 +1053,7 @@ def ThreeDPrinting1():
                             </tr>
                         </tbody>
                     </table>
-                    <div style="text-align:center; ">
+                    <div style="text-align:center; " id="node_prj">
                         <div class="nodes-inline nodes-inline-node ">
                             <div class="nodes nodes-green "><span class="nodes-icon glyphicon glyphicon-ok " aria-hidden="true "></span></div><span class="node_name ">发起</span><span class="node_name person ">漆枋晨1</span></div>
                         <div class="nodes-inline ">
@@ -1045,6 +1061,25 @@ def ThreeDPrinting1():
                         </div>
                         <div class="nodes-inline nodes-inline-node ">
                             <div class="nodes nodes-orange "></div><span class="node_name ">项目负责人</span><span class="node_name person ">漆枋晨1</span></div>
+                        <div class="nodes-inline ">
+                            <div class="nodes-arrow "><span class="nodes-icon glyphicon glyphicon-arrow-right " aria-hidden="true "></span></div>
+                        </div>
+                        <div class="nodes-inline nodes-inline-node " style="width:76px;">
+                            <div class="nodes nodes-blue "></div><span class="node_name ">3D打印负责人</span><span class="node_name person ">李韵</span></div>
+                        <div class="nodes-inline ">
+                            <div class="nodes-arrow "><span class="nodes-icon glyphicon glyphicon-arrow-right " aria-hidden="true "></span></div>
+                        </div>
+                        <div class="nodes-inline nodes-inline-node ">
+                            <div class="nodes nodes-blue "></div><span class="node_name ">打印完成</span><span class="node_name person ">李韵</span></div>
+                    </div>
+                    <div style="text-align:center; display:none;" id="node_noprj">
+                        <div class="nodes-inline nodes-inline-node ">
+                            <div class="nodes nodes-green "><span class="nodes-icon glyphicon glyphicon-ok " aria-hidden="true "></span></div><span class="node_name ">发起</span><span class="node_name person ">漆枋晨1</span></div>
+                        <div class="nodes-inline ">
+                            <div class="nodes-arrow "><span class="nodes-icon glyphicon glyphicon-arrow-right " aria-hidden="true "></span></div>
+                        </div>
+                        <div class="nodes-inline nodes-inline-node ">
+                            <div class="nodes nodes-orange "></div><span class="node_name ">部门负责人</span><span class="node_name person ">漆枋晨1</span></div>
                         <div class="nodes-inline ">
                             <div class="nodes-arrow "><span class="nodes-icon glyphicon glyphicon-arrow-right " aria-hidden="true "></span></div>
                         </div>
@@ -1189,7 +1224,7 @@ def ThreeDPrinting2():
 
 
 def hp1():
-    name='航拍（工程）'
+    name='航拍'
     h=CapolHtml_TablePage()
     h.head.addObj(meta)
     h.head.addObj(icon)
@@ -1202,7 +1237,7 @@ def hp1():
     h.set_nav_lst1([('通用','#'),('运营','#'),('经营','#'),('财务','#'),('人力资源','#'),('市场品牌推广','#'),('采购','#'),('知识产权','#'),('法务','#'),('其他','#')])
     h.set_nav_lst2(index=1,lst=[('盖章申请流程','#'),('……','#'),('……','#')])
     h.set_nav_lst2(index=2,lst=[('效果图制作','#'),('……','#'),('……','#')],active=1)
-    h.set_tab2(lst=[('效果图制作（内部）','./xgt1'),('效果图制作（外包）','./xgt2'),('3D打印（工程）','./3dp1'),('航拍（工程）','./hp1'),('3D打印（部门）','./3dp2'),('航拍（部门）','./hp2')],active=4)
+    h.set_tab2(lst=[('效果图制作（内部）','./xgt1'),('效果图制作（外包）','./xgt2'),('3D打印','./3dp1'),('航拍','./hp1')],active=4)
     h.set_selection()
     h.set_tabletitle(['航拍申请一览表（工程）',
         button(span(cl="glyphicon glyphicon-plus",aria_hidden="true"),'发起流程',type="button",cl="btn btn-default btn-xs btn-red right-buttons",id="open")])
@@ -1218,16 +1253,31 @@ def hp1():
                     <table class="table table-bordered">
                         <tbody>
                             <tr class="title">
-                                <th colspan="8" style="background:url(http://cip.capol.cn/capol/homepage/resource/img/logo.png)no-repeat;">航拍申请单（工程）</th>
+                                <th colspan="8" style="background:url(http://cip.capol.cn/capol/homepage/resource/img/logo.png)no-repeat;">航拍申请单</th>
                             </tr>
                             <tr>
+                                <td class="bold" style="width:12%">申请类型</td>
+                                <td class="bold" style="width:88%;text-align:left;padding-left:10px;" colspan="7">
+                                    <label class="radio-inline">
+                                        <input class="sm" type="radio" name="isprj" value="1" checked="checked">工程</label>
+                                    <label class="radio-inline">
+                                        <input class="sm" type="radio" name="isprj" id="noprj" value="0">非工程</label>
+                                </td>
+                            </tr>
+                            <tr id="table_prj">
                                 <td class="bold" style="width:12%">工程编号</td>
                                 <td style="width:12%">
-                                    <input class="form-control select" type="text" id="prjno" value="GC160019">
+                                    <input class="form-control select" type="text" id="prjno">
                                 </td>
                                 <td class="bold" style="width:12%">工程名称</td>
                                 <td style="width:64%" colspan="5">
-                                    <input class="form-control select" type="text" id="prjname" value="深业世纪山谷城市更新单元">
+                                    <input class="form-control select" type="text" id="prjname">
+                                </td>
+                            </tr>
+                            <tr id="table_noprj" style="display:none;">
+                                <td class="bold" style="width:12%">航拍内容</td>
+                                <td class="bold" style="width:88%;" colspan="7">
+                                     <input class="form-control select" type="text" id="">
                                 </td>
                             </tr>
                             <tr>
@@ -1264,7 +1314,7 @@ def hp1():
                         </tbody>
                     </table>
                   
-                    <div style="text-align:center; ">
+                    <div style="text-align:center; " id="node_prj">
                         <div class="nodes-inline nodes-inline-node ">
                             <div class="nodes nodes-green "><span class="nodes-icon glyphicon glyphicon-ok " aria-hidden="true "></span></div><span class="node_name ">发起</span><span class="node_name person ">漆枋晨1</span></div>
                         <div class="nodes-inline ">
@@ -1272,6 +1322,26 @@ def hp1():
                         </div>
                         <div class="nodes-inline nodes-inline-node ">
                             <div class="nodes nodes-orange "></div><span class="node_name ">项目负责人</span><span class="node_name person ">漆枋晨1</span></div>
+                        <div class="nodes-inline ">
+                            <div class="nodes-arrow "><span class="nodes-icon glyphicon glyphicon-arrow-right " aria-hidden="true "></span></div>
+                        </div>
+                        <div class="nodes-inline nodes-inline-node ">
+                            <div class="nodes nodes-blue "></div><span class="node_name ">航拍负责人</span><span class="node_name person ">李韵</span></div>
+                        <div class="nodes-inline ">
+                            <div class="nodes-arrow "><span class="nodes-icon glyphicon glyphicon-arrow-right " aria-hidden="true "></span></div>
+                        </div>
+                        <div class="nodes-inline nodes-inline-node ">
+                            <div class="nodes nodes-blue "></div><span class="node_name ">航拍完成</span><span class="node_name person ">李韵</span></div>
+                            
+                    </div>
+                    <div style="text-align:center; display:none;" id="node_noprj">
+                        <div class="nodes-inline nodes-inline-node ">
+                            <div class="nodes nodes-green "><span class="nodes-icon glyphicon glyphicon-ok " aria-hidden="true "></span></div><span class="node_name ">发起</span><span class="node_name person ">漆枋晨1</span></div>
+                        <div class="nodes-inline ">
+                            <div class="nodes-arrow "><span class="nodes-icon glyphicon glyphicon-arrow-right " aria-hidden="true "></span></div>
+                        </div>
+                        <div class="nodes-inline nodes-inline-node ">
+                            <div class="nodes nodes-orange "></div><span class="node_name ">部门负责人</span><span class="node_name person ">漆枋晨1</span></div>
                         <div class="nodes-inline ">
                             <div class="nodes-arrow "><span class="nodes-icon glyphicon glyphicon-arrow-right " aria-hidden="true "></span></div>
                         </div>
@@ -1392,3 +1462,30 @@ def hp2():
     h.generate()
     h.head.addObj(script(page_js,type='text/javascript'))
     return h.page.render()
+
+
+page_js='''
+    $(document).ready(function() {
+        $("#close").click(function() {
+            $("#window").hide();
+        });
+    });
+    $(document).ready(function() {
+        $("#open").click(function() {
+            $("#window").show();
+        });
+    });
+    $(function(){
+        $('input[name="isprj"]').click(function(){
+            var isprj = $('input[name="isprj"]:checked ').val();
+            if(isprj == 1){
+                $("#table_prj").show();$("#table_noprj").hide();
+                $("#node_prj").show();$("#node_noprj").hide();
+            }
+            if(isprj == 0){
+                $("#table_prj").hide();$("#table_noprj").show();
+                $("#node_prj").hide();$("#node_noprj").show();
+            }
+        })
+    })
+    '''
