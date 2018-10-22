@@ -2,6 +2,8 @@
 import os
 from tablepage import *
 
+excel='./static/流程-效果图制作.xlsx'
+
 def xgt1():
     name='效果图制作（内部）'
     h=CapolHtml_TablePage()
@@ -22,7 +24,7 @@ def xgt1():
         button(span(cl="glyphicon glyphicon-plus",aria_hidden="true"),'发起流程',type="button",cl="btn btn-default btn-xs btn-red right-buttons",id="open")])
     t=table()
     t.attributes=h.table.attributes
-    t.read_excel('./static/流程-效果图制作.xlsx',sheet=name)
+    t.read_excel(excel,sheet_name=name)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t
@@ -473,7 +475,7 @@ def xgt2():
         button(span(cl="glyphicon glyphicon-plus",aria_hidden="true"),'发起流程',type="button",cl="btn btn-default btn-xs btn-red right-buttons",id="open")])
     t=table()
     t.attributes=h.table.attributes
-    t.read_excel('./static/流程-效果图制作.xlsx',sheet=name)
+    t.read_excel(excel,sheet_name=name)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t
@@ -962,7 +964,7 @@ def ThreeDPrinting1():
         button(span(cl="glyphicon glyphicon-plus",aria_hidden="true"),'发起流程',type="button",cl="btn btn-default btn-xs btn-red right-buttons",id="open")])
     t=table()
     t.attributes=h.table.attributes
-    t.read_excel('./static/流程-效果图制作.xlsx',sheet=name)
+    t.read_excel(excel,sheet_name=name)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t
@@ -1085,7 +1087,7 @@ def ThreeDPrinting2():
         button(span(cl="glyphicon glyphicon-plus",aria_hidden="true"),'发起流程',type="button",cl="btn btn-default btn-xs btn-red right-buttons",id="open")])
     t=table()
     t.attributes=h.table.attributes
-    t.read_excel('./static/流程-效果图制作.xlsx',sheet=name)
+    t.read_excel(excel,sheet_name=name)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t
@@ -1206,7 +1208,7 @@ def hp1():
         button(span(cl="glyphicon glyphicon-plus",aria_hidden="true"),'发起流程',type="button",cl="btn btn-default btn-xs btn-red right-buttons",id="open")])
     t=table()
     t.attributes=h.table.attributes
-    t.read_excel('./static/流程-效果图制作.xlsx',sheet=name)
+    t.read_excel(excel,sheet_name=name)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t
@@ -1313,7 +1315,7 @@ def hp2():
         button(span(cl="glyphicon glyphicon-plus",aria_hidden="true"),'发起流程',type="button",cl="btn btn-default btn-xs btn-red right-buttons",id="open")])
     t=table()
     t.attributes=h.table.attributes
-    t.read_excel('./static/流程-效果图制作.xlsx',sheet=name)
+    t.read_excel(excel,sheet_name=name)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t

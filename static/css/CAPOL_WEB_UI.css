@@ -219,7 +219,6 @@ body {
     height: 40px;
     line-height: 1.4;
 }
-
 .no-padding {
     padding: 0px !important;
 }
@@ -231,6 +230,11 @@ body {
 .table-bordered thead tr td,
 .table-bordered thead tr th {
     border-bottom-width: 2px;
+}
+
+.table-bordered2 thead tr td,
+.table-bordered2 thead tr th {
+    border-bottom-width: 1px;
 }
 
 .dataTables_scroll table.table-bordered thead tr th {

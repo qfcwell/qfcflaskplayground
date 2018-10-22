@@ -94,7 +94,10 @@ class Tag(list):
         return result
 
     def selfClose(self):
-        return self.tagname in selfClose        
+        return self.tagname in selfClose
+
+    def set_attributes(self,**kw):
+        self.attributes=dict(self.attributes,**kw)        
     
 def TagFactory(name):
     class f(Tag):

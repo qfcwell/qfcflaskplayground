@@ -2,6 +2,7 @@
 from pyh import *
 import pandas as pd
 import datetime
+import numpy as np
 
 class CapolHtml_TablePage():
     def __init__(self):
@@ -27,29 +28,32 @@ class CapolHtml_TablePage():
         self.dept_selection=select(option('不限',value=''),id="filter-dept",cl="combobox",style="width:80px;")
         self.stage_selection=select(option('初步设计',value=''),option('施工图',value=''),id="filter-dept",cl="combobox",style="width:80px;")
         self.selection=div(style="height:48px;")
-        self.select_year=div(span('年份'),select(option('不限',value=''),option('2018',value=''),option('2017',value=''),option('2016',value=''),option('2015及以前',value=''),id="filter-module",cl="combobox",style="width:100px;"),cl="select-item",style="margin-right:40px;")
-        self.select_company=div(span('所属公司'),self.comp_selection,cl="select-item")
-        self.select_dept=div(span('所属部门'),self.dept_selection,cl="select-item",style="padding-right: 40px;")
-        self.select_keywords=div(span('关键字',cl="float",style='margin-top:8px;'),div('<input class="form-control input-sm" type="text" placeholder="名称、内容、负责人……" style="width:200px;border-right:0px;"><span class="input-group-search-btn"> 搜索</span>',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px;margin-left:100px;")
-        self.select_prjno=div(span('工程编号',cl="float",style='margin-top:8px;'),div('<input class="form-control select" type="text" style="width:80px;height: 29px;border-radius: 4px;">',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px; ")
-        self.select_prjname=div(span('工程名称',cl="float",style='margin-top:8px;'),div('<input class="form-control select" type="text" style="width:200px;height: 29px;border-radius: 4px;">',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px;")
-        self.tabletitle=div(cl="table-title clearFix")
-        self.tabletools=''
-        self.table=table(cl="table table-bordered")
-        self.form_window=''
-        self.select_prjcomp=div(span('项目所属公司'),self.comp_selection,cl="select-item")
-        self.select_prjdept=div(span('项目所属部门'),self.dept_selection,cl="select-item")
-        self.select_prjstage=div(span('工程阶段'),self.stage_selection,cl="select-item")
-        self.select_subentry=div(span('子项'),self.no_selection,cl="select-item")
+        self.select_year=div(span('年份',style='font-weight:bold;'),select(option('不限',value=''),option('2018',value=''),option('2017',value=''),option('2016',value=''),option('2015及以前',value=''),id="filter-module",cl="combobox",style="width:60px;"),cl="select-item")
+        self.select_company=div(span('所属公司',style='font-weight:bold;'),self.comp_selection,cl="select-item")
+        self.select_dept=div(span('所属部门',style='font-weight:bold;'),self.dept_selection,cl="select-item",style="padding-right: 40px;")
+        self.select_dept1=div(span('一级部门',style='font-weight:bold;'),self.dept_selection,cl="select-item")
+        self.select_dept2=div(span('二级部门',style='font-weight:bold;'),self.dept_selection,cl="select-item")
+        self.select_keywords=div(span('关键字',cl="float",style='font-weight:bold;margin-top:8px;'),div('<input class="form-control input-sm" type="text" placeholder="名称、内容、负责人……" style="width:200px;border-right:0px;"><span class="input-group-search-btn"> 搜索</span>',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px;margin-left:100px;")
+        self.select_prjno=div(span('工程编号',cl="float",style='font-weight:bold;margin-top:8px;'),div('<input class="form-control select" type="text" style="width:80px;height: 29px;border-radius: 4px;">',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px; ")
+        self.select_prjname=div(span('工程名称',cl="float",style='font-weight:bold;margin-top:8px;'),div('<input class="form-control select" type="text" style="width:200px;height: 29px;border-radius: 4px;">',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px;")
+        self.select_prjcomp=div(span('项目所属公司',style='font-weight:bold;'),self.comp_selection,cl="select-item")
+        self.select_prjdept=div(span('项目所属部门',style='font-weight:bold;'),self.dept_selection,cl="select-item")
+        self.select_prjstage=div(span('工程阶段',style='font-weight:bold;'),self.stage_selection,cl="select-item")
+        self.select_subentry=div(span('子项',style='font-weight:bold;'),self.no_selection,cl="select-item")
         self.prj_status_checkbox=''
         self.prj_stage_checkbox=''
         self.major_checkbox=''
         self.opinion_type_checkbox=''
         self.hr_status=self.generate_checkbox('人员状态',lst=['全部','在职','离职'],checked=[1])
+        self.tabletitle=div(cl="table-title clearFix")
+        self.tabletools=''
+        self.table=table(cl="table table-bordered")
+        self.form_window=''
+        
 
     def generate_checkbox(self,objname,lst=[],checked=[]):
         if lst:
-            obj=div(div(objname,"：&nbsp;&nbsp;",style='width:80px;height:24px;float:left;'),cl="checkbox",style="margin-left: 5px;width: 49%; float: left;margin-top:10px;margin-bottom:10px;")
+            obj=div(div(objname,"：&nbsp;&nbsp;",style='width:80px;height:24px;float:left;font-weight: bold;'),cl="checkbox",style="margin-left: 5px;width: 49%; float: left;margin-top:10px;margin-bottom:10px;")
             for item in lst:
                 if item in checked:
                     obj.addObj(label(input(type="checkbox",checked='true'),item+'&nbsp;'))
@@ -92,16 +96,10 @@ class CapolHtml_TablePage():
                 self.selection.addObj(div(div(style="height:10px;width:100%;"),style="width:100%;float: left;"))
             for item in selection:
                 self.selection_dict={
-                '所属公司':self.select_company,
-                '所属部门':self.select_dept,
-                '项目所属公司':self.select_prjcomp,
-                '项目所属部门':self.select_prjdept,
-                '年份':self.select_year,
-                '工程阶段':self.select_prjstage,
-                '子项':self.select_subentry,
-                '工程编号':self.select_prjno,
-                '工程名称':self.select_prjname,
-                '关键字':self.select_keywords}
+                '所属公司':self.select_company,'所属部门':self.select_dept,'项目所属公司':self.select_prjcomp,'项目所属部门':self.select_prjdept,
+                '一级部门':self.select_dept1,'二级部门':self.select_dept2,
+                '年份':self.select_year,'工程阶段':self.select_prjstage,'工程编号':self.select_prjno,'工程名称':self.select_prjname,
+                '子项':self.select_subentry,'关键字':self.select_keywords}
                 self.selection.div[0].addObj(self.selection_dict[item])
             for item in checkbox:
                 self.checkbox_dict={'专业':self.major_checkbox,'工程阶段':self.prj_stage_checkbox,'工程状态':self.prj_status_checkbox,'人员状态':self.hr_status,'意见类型':self.opinion_type_checkbox}
@@ -216,13 +214,12 @@ class table(Tag):
     tagname='table'
     def __init__(self, *arg, **kw):
         Tag.__init__(self, *arg, **kw)
-        self.thead=thead()
-        self.tbody=tbody()
-        self<<self.thead
-        self<<self.tbody
+        self<<thead(tr())
+        self<<tbody()
+
 
     def add_col(self,col_name):
-        self.thead<<th(col_name)
+        self.thead.tr<<th(col_name)
 
     def add_cols(self,col_name_lst):
         for col_name in col_name_lst:
@@ -245,11 +242,19 @@ class table(Tag):
     def set_cell_attr(self,r,c,**attr):
         self.tbody[r][c].attributes=attr
 
-    def read_excel(self,excel,sheet=0):
-        excel=pd.read_excel(excel,sheet_name=sheet)
-        excel=excel.fillna('')
-        self.add_cols(excel.columns)
-        self.add_rows(excel.values)
+    def read_excel(self,excel,**kw):
+        self.excel=pd.read_excel(excel,**kw)
+        self.excel=self.excel.fillna('')
+        if isinstance(self.excel.columns,pd.MultiIndex):
+            lines=zip(*self.excel.columns)
+            for line in lines: 
+                row=tr()
+                for item in line:
+                    row.addObj(th(item))
+                self.thead.addObj(row)
+        else:
+            self.add_cols(self.excel.columns)
+        self.add_rows(self.excel.values)
 
     def get_value(self,r,c):
         return self.tbody[r][c]
@@ -276,6 +281,76 @@ class table(Tag):
                             val=val[0:-2]
                         self.tbody[r][col][0]=val+'...'
 
+    def merge_cells(self,row,col,rowspan=0,colspan=0):
+        if rowspan>0 and colspan>0:
+            tmp=self.tbody[row][col]
+            for r in range(rowspan):
+                for c in range(colspan):
+                    self.tbody[row+r][col+c]=''
+            self.tbody[row][col]=tmp
+            self.tbody[row][col].set_attributes(colspan=colspan,rowspan=rowspan)
+        elif rowspan>0:
+            self.tbody[row][col].set_attributes(rowspan=rowspan)
+            for r in range(1,rowspan):
+                self.tbody[row+r][col]=''
+        elif colspan>0:
+            self.tbody[row][col].set_attributes(colspan=colspan)
+            for c in range(1,colspan):
+                self.tbody[row][col+c]=''
+        else:
+            pass
+
+    def auto_fill_cell(self,tbody,r,c):
+        if tbody[r][c]==['']:
+            return self.auto_fill_cell(tbody,r-1,c)
+        else:
+            return tbody[r][c]
+
+    def auto_fill(self,cols=[]):
+        for c in cols:
+            for r in range(len(self.tbody)):
+                self.tbody[r][c]=self.auto_fill_cell(self.tbody,r,c)
+
+    def to_int(self,cols=[]):
+        for c in cols:
+            for r in range(len(self.tbody)):
+                if self.tbody[r][c][0].split('.')[-1]=='0':
+                    self.tbody[r][c][0]=self.tbody[r][c][0].split('.')[0]
+
+    def to_percentage(self,cols=[],color=''):
+        for c in cols:
+            for r in range(len(self.tbody)):
+                if self.tbody[r][c][0] in ['1','1.0']:
+                    self.tbody[r][c][0]='100.00%'
+                    if color=='asc':
+                        self.tbody[r][c].attributes['style']='background-color:#ff9d80'
+                    elif color=='desc':  
+                        self.tbody[r][c].attributes['style']='background-color:#c1df9f'
+                elif self.tbody[r][c][0].split('.')[0]=='0':
+                    res=self.tbody[r][c][0]+'000000'
+                    self.tbody[r][c][0]=res[2:4]+'.'+res[4:6]+'%'
+                    if color=='asc':
+                        if int(res[2:4])<5:
+                            self.tbody[r][c].attributes['style']='background-color:#ff9d80'
+                        elif int(res[2:4])>=85:
+                            self.tbody[r][c].attributes['style']='background-color:#FFF599'
+                        elif int(res[2:4])>=75:
+                            self.tbody[r][c].attributes['style']='background-color:#fff'
+                        elif int(res[2:4])<75:
+                            self.tbody[r][c].attributes['style']='background-color:#c1df9f'
+                            print(int(res[2:4]))
+                    elif color=='desc':
+                        if int(res[2:4])>=95:
+                            self.tbody[r][c].attributes['style']='background-color:#c1df9f'
+                        elif int(res[2:4])>=85:
+                            self.tbody[r][c].attributes['style']='background-color:#FFF'
+                        elif int(res[2:4])>=75:
+                            self.tbody[r][c].attributes['style']='background-color:#fff599'
+                        elif int(res[2:4])<75:
+                            self.tbody[r][c].attributes['style']='background-color:#ff9d80'
+                            print(int(res[2:4]))
+                else:
+                    self.tbody[r][c][0]=''
 
 class CapolHtml_ProjectPage(CapolHtml_TablePage):
     def __init__(self, *arg, **kw):
@@ -331,7 +406,7 @@ class CapolHtml_ProjectPage(CapolHtml_TablePage):
 
     def generate_checkbox(self,objname,lst=[],checked=[]):
         if lst:
-            obj=div(div(objname,"：&nbsp;&nbsp;",style='height:24px;float:left;'),cl="checkbox",style="margin-left: 24px; float: left;margin-top:17px;margin-bottom:10px;margin-right:10px;")
+            obj=div(div(objname,"：&nbsp;&nbsp;",style='height:24px;float:left;font-weight:bold;'),cl="checkbox",style="margin-left: 24px; float: left;margin-top:17px;margin-bottom:10px;margin-right:10px;")
             for item in lst:
                 if item in checked:
                     obj.addObj(label(input(type="checkbox",checked='true'),item+'&nbsp;'))
@@ -341,6 +416,8 @@ class CapolHtml_ProjectPage(CapolHtml_TablePage):
         else:
             return ''   
      
+
+ 
 page_js='''
     $(document).ready(function() {
         $("#close").click(function() {
@@ -351,10 +428,20 @@ page_js='''
         $("#open").click(function() {
             $("#window").show();
         });
-    });'''
+    });
+    '''
 meta='''<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">'''
 icon='<link rel="icon" href="./static/favicon.ico">'
+
+
+if __name__ == '__main__':
+    t=table()
+
+    t.read_excel('./static/质量管控表单.xlsx',sheet_name='项目设计人员校审情况一览表')
+    #t.read_excel('./static/质量管控表单.xlsx',sheet_name='项目校审情况一览表')
+
+    t.to_percentage([23,24])
