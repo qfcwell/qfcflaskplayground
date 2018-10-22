@@ -1030,13 +1030,7 @@ def ThreeDPrinting1():
                             <tr>
                                 <td class="bold">打印比例</td>
                                 <td colspan="7" style="text-align: left;">
-                                    <select id="filter-dept" class="combobox" style="width:100px;">
-                                        <option value="" selected="selected">1:2000</option>
-                                        <option value="">1:1000</option>
-                                        <option value="">1:500</option>
-                                        <option value="">1:200</option>
-                                        <option value="">1:100</option>
-                                    </select>
+                                    <input class="form-control" type="text" style="width:150px;">
                                 </td>
                             </tr>
                             <tr class="sm">
