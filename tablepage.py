@@ -271,6 +271,12 @@ class table(Tag):
                 if isinstance(self.tbody[r][col][0],str):
                     self.tbody[r][col][0]=self.tbody[r][col][0].replace(' ','</br>')
 
+    def datetime_str_to_date_str(self,*cols):
+        for col in cols:
+            for r in range(len(self.tbody)):
+                if isinstance(self.tbody[r][col][0],str):
+                    self.tbody[r][col][0]=self.tbody[r][col][0].split(" ")[0]
+
     def str_length_control(self,length,*cols):
         for col in cols:
             for r in range(len(self.tbody)):

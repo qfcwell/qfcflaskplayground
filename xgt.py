@@ -25,6 +25,7 @@ def xgt1():
     t=table()
     t.attributes=h.table.attributes
     t.read_excel(excel,sheet_name=name)
+    t.datetime_str_to_date_str(6,7,8,9)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t
@@ -476,6 +477,7 @@ def xgt2():
     t=table()
     t.attributes=h.table.attributes
     t.read_excel(excel,sheet_name=name)
+    t.datetime_str_to_date_str(6,7)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t
@@ -965,6 +967,7 @@ def ThreeDPrinting1():
     t=table()
     t.attributes=h.table.attributes
     t.read_excel(excel,sheet_name=name)
+    t.datetime_str_to_date_str(9)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t
@@ -1244,6 +1247,7 @@ def hp1():
     t=table()
     t.attributes=h.table.attributes
     t.read_excel(excel,sheet_name=name)
+    t.datetime_str_to_date_str(9)
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=3,style='text-align:left;')
     h.table=t
