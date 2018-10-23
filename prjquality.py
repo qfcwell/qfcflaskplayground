@@ -246,8 +246,8 @@ def design_prj_review_status():
         th('待处理'), th('处理中'),th('已完成'),th('总数'),
         th('校审意见总数'),th('未处理百分比'),th('处理中百分比')
         ),style='border-bottom:2px solid #ccc;')
-    t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
-    t.set_col_attr(i=3,style='text-align:left;')
+    t.set_col_attr(i=6,style='color:#0068B7;text-decoration: underline;')
+    t.set_col_attr(i=7,style='text-align:left;color:#0068B7;text-decoration: underline;')
     t.to_int(range(25))
     t.to_percentage(cols=[25,26])
     #t.auto_fill(range(5))
@@ -380,8 +380,8 @@ def review_prj_review_status():
         th('待设计人员处理'), th('待复核'),th('已完成'),th('总数'),
         th('意见总数量'),th('待设计人员处理百分比'),th('待复核百分比')
         ),style='border-bottom:2px solid #ccc;')
-    t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
-    t.set_col_attr(i=3,style='text-align:left;')
+    t.set_col_attr(i=6,style='color:#0068B7;text-decoration: underline;')
+    t.set_col_attr(i=7,style='text-align:left;color:#0068B7;text-decoration: underline;')
     t.to_int(range(21))
     t.to_percentage(cols=[21,22])
     #t.auto_fill(range(5))
