@@ -219,6 +219,16 @@ body {
     height: 40px;
     line-height: 1.4;
 }
+
+.table-bordered1 tbody tr td,
+.table-bordered1 tbody tr th,
+.table-bordered1 tfoot tr td,
+.table-bordered1 tfoot tr th,
+.table-bordered1 thead tr td,
+.table-bordered1 thead tr th {
+    height: 24px;
+}
+
 .no-padding {
     padding: 0px !important;
 }

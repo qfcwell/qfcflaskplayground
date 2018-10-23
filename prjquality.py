@@ -27,7 +27,7 @@ def prjreview():
     h.set_tabletitle([name],type=1)
     h.set_tabletools('导出Excel',date=1)
     t=table()
-    t.attributes['cl']="table table-bordered table-bordered2"
+    t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
     t.read_excel(excel,sheet_name=name,header=[0,1,2])
     t[0]=thead(tr( 
@@ -101,6 +101,7 @@ def prj_review_record():
     t=table()
     h.table.attributes['id']='prj_review_record_table'
     t.attributes=h.table.attributes
+    t.attributes['cl']="table table-bordered table-bordered1"
     t.read_excel(excel,sheet_name=name) 
     t.datetime_str_split_line(10,13,15)
     t.str_length_control(100,8)
@@ -149,7 +150,7 @@ def prj_design_review_status():
     h.set_tabletitle([name],type=1)
     h.set_tabletools('导出Excel',date=1)
     t=table()
-    t.attributes['cl']="table table-bordered table-bordered2"
+    t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
     t.read_excel(excel,sheet_name=name,header=[0,1,2])
     t[0]=thead(tr( 
@@ -217,7 +218,7 @@ def design_prj_review_status():
     h.set_tabletitle([name],type=1)
     h.set_tabletools('导出Excel',date=1)
     t=table()
-    t.attributes['cl']="table table-bordered table-bordered2"
+    t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
     t.read_excel(excel,sheet_name=name,header=[0,1,2])
     t[0]=thead(tr( 
@@ -287,7 +288,7 @@ def prj_review_review_status():
     h.set_tabletitle([name],type=1)
     h.set_tabletools('导出Excel',date=1)
     t=table()
-    t.attributes['cl']="table table-bordered table-bordered2"
+    t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
     t.read_excel(excel,sheet_name=name,header=[0,1,2])
     t[0]=thead(tr( 
@@ -353,7 +354,7 @@ def review_prj_review_status():
     h.set_tabletitle([name],type=1)
     h.set_tabletools('导出Excel',date=1)
     t=table()
-    t.attributes['cl']="table table-bordered table-bordered2"
+    t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
     t.read_excel(excel,sheet_name=name,header=[0,1,2])
     t[0]=thead(tr( 
