@@ -338,7 +338,7 @@ class table(Tag):
                     if color=='asc':
                         self.tbody[r][c].attributes['style']='background-color:#ff9d80'
                     elif color=='desc':  
-                        self.tbody[r][c].attributes['style']='background-color:#c1df9f'
+                        pass
                 elif self.tbody[r][c][0].split('.')[0]=='0':
                     res=self.tbody[r][c][0]+'000000'
                     self.tbody[r][c][0]=res[2:4]+'.'+res[4:6]+'%'
@@ -352,12 +352,10 @@ class table(Tag):
                             print(int(res[2:4]))
                     elif color=='desc':
                         if int(res[2:4])>=90:
-                            self.tbody[r][c].attributes['style']='background-color:#c1df9f'
+                            pass
                         elif int(res[2:4])>=80:
-                            self.tbody[r][c].attributes['style']='background-color:#FFF'
-                        elif int(res[2:4])>=70:
                             self.tbody[r][c].attributes['style']='background-color:#fff599'
-                        elif int(res[2:4])<70:
+                        elif int(res[2:4])<80:
                             self.tbody[r][c].attributes['style']='background-color:#ff9d80'
                             print(int(res[2:4]))
                 else:
