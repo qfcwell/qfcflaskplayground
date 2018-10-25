@@ -327,6 +327,8 @@ class table(Tag):
             for r in range(len(self.tbody)):
                 if self.tbody[r][c][0].split('.')[-1]=='0':
                     self.tbody[r][c][0]=self.tbody[r][c][0].split('.')[0]
+                elif self.tbody[r][c][0]=='-':
+                    self.tbody[r][c]=td(style='background-color:#DDD;')
 
     def to_percentage(self,cols=[],color=''):
         for c in cols:
