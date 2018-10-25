@@ -9,6 +9,7 @@ class CapolHtml_TablePage():
         self.page=PyH('CAPOL_WEB_UI')
         self.head=self.page.head
         self.body=self.page.body
+        self.body.attributes['style']='min-width:1600px;'
         self.css=[]
         self.js=[]
         self.page_css=''
@@ -336,27 +337,29 @@ class table(Tag):
                     res=self.tbody[r][c][0]+'000000'
                     self.tbody[r][c][0]=res[2:4]+'.'+res[4:6]+'%'
                     if color=='asc':
-                        if int(res[2:4])<5:
-                            self.tbody[r][c].attributes['style']='background-color:#ff9d80'
-                        elif int(res[2:4])>=85:
+                        if int(res[2:4])<20:
+                            self.tbody[r][c].attributes['style']=''
+                        elif int(res[2:4])<=40:
                             self.tbody[r][c].attributes['style']='background-color:#FFF599'
-                        elif int(res[2:4])>=75:
-                            self.tbody[r][c].attributes['style']='background-color:#fff'
-                        elif int(res[2:4])<75:
-                            self.tbody[r][c].attributes['style']='background-color:#c1df9f'
+                        elif int(res[2:4])>40:
+                            self.tbody[r][c].attributes['style']='background-color:#ff9d80'
                             print(int(res[2:4]))
                     elif color=='desc':
-                        if int(res[2:4])>=95:
+                        if int(res[2:4])>=90:
                             self.tbody[r][c].attributes['style']='background-color:#c1df9f'
-                        elif int(res[2:4])>=85:
+                        elif int(res[2:4])>=80:
                             self.tbody[r][c].attributes['style']='background-color:#FFF'
-                        elif int(res[2:4])>=75:
+                        elif int(res[2:4])>=70:
                             self.tbody[r][c].attributes['style']='background-color:#fff599'
-                        elif int(res[2:4])<75:
+                        elif int(res[2:4])<70:
                             self.tbody[r][c].attributes['style']='background-color:#ff9d80'
                             print(int(res[2:4]))
                 else:
                     self.tbody[r][c][0]=''
+
+    def transform_a(self,r,c,**kw):
+        self.tbody[r][c][0]=a(self.tbody[r][c][0],**kw)
+
 
 class CapolHtml_ProjectPage(CapolHtml_TablePage):
     def __init__(self, *arg, **kw):
