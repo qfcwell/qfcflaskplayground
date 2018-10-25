@@ -37,10 +37,13 @@ class CapolHtml_TablePage():
         self.select_keywords=div(span('关键字',cl="float",style='font-weight:bold;margin-top:8px;'),div('<input class="form-control input-sm" type="text" placeholder="名称、内容、负责人……" style="width:200px;border-right:0px;"><span class="input-group-search-btn"> 搜索</span>',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px;margin-left:100px;")
         self.select_prjno=div(span('工程编号',cl="float",style='font-weight:bold;margin-top:8px;'),div('<input class="form-control select" type="text" style="width:80px;height: 29px;border-radius: 4px;">',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px; ")
         self.select_prjname=div(span('工程名称',cl="float",style='font-weight:bold;margin-top:8px;'),div('<input class="form-control select" type="text" style="width:200px;height: 29px;border-radius: 4px;">',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px;")
+        self.dgn_manager=div(span('方案负责人',cl="float",style='font-weight:bold;margin-top:8px;'),div('<input class="form-control select" type="text" style="width:80px;height: 29px;border-radius: 4px;">',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px;")
+        self.prj_manager=div(span('项目负责人',cl="float",style='font-weight:bold;margin-top:8px;'),div('<input class="form-control select" type="text" style="width:80px;height: 29px;border-radius: 4px;">',cl="input-group"),cl="select-item",id="so",style="margin-right: 10px;")
         self.select_prjcomp=div(span('项目所属公司',style='font-weight:bold;'),self.comp_selection,cl="select-item")
         self.select_prjdept=div(span('项目所属部门',style='font-weight:bold;'),self.dept_selection,cl="select-item")
         self.select_prjstage=div(span('工程阶段',style='font-weight:bold;'),self.stage_selection,cl="select-item")
         self.select_subentry=div(span('子项',style='font-weight:bold;'),self.no_selection,cl="select-item")
+        self.selection_br=div(style='clear:both;')
         self.prj_status_checkbox=''
         self.prj_stage_checkbox=''
         self.major_checkbox=''
@@ -51,10 +54,11 @@ class CapolHtml_TablePage():
         self.table=table(cl="table table-bordered")
         self.form_window=''
         
+        
 
     def generate_checkbox(self,objname,lst=[],checked=[]):
         if lst:
-            obj=div(div(objname,"：&nbsp;&nbsp;",style='width:80px;height:24px;float:left;font-weight: bold;'),cl="checkbox",style="margin-left: 5px;width: 49%; float: left;margin-top:10px;margin-bottom:10px;")
+            obj=div(div(objname,"：&nbsp;&nbsp;",style='height:24px;float:left;font-weight: bold;'),cl="checkbox",style="margin-left: 5px; padding-right:100px;float: left;margin-top:10px;margin-bottom:10px;")
             for item in lst:
                 if item in checked:
                     obj.addObj(label(input(type="checkbox",checked='true'),item+'&nbsp;'))
@@ -67,7 +71,7 @@ class CapolHtml_TablePage():
     def set_status_checkbox(self,lst=[],checked=[]):
         if lst==[]:
             lst=['全选','投标','规划','方案','初步设计','施工图','施工服务','待启动','暂停','合同履约完成','竣工','终止']
-            checked=[1,2,3,4,5,6,7]
+            checked=['投标','规划','方案','初步设计','施工图','施工服务','待启动','暂停']
         self.prj_status_checkbox=self.generate_checkbox('工程状态',lst=lst,checked=checked)
 
     def set_major_checkbox(self,lst=[],checked=[]):
@@ -99,8 +103,8 @@ class CapolHtml_TablePage():
                 self.selection_dict={
                 '所属公司':self.select_company,'所属部门':self.select_dept,'项目所属公司':self.select_prjcomp,'项目所属部门':self.select_prjdept,
                 '一级部门':self.select_dept1,'二级部门':self.select_dept2,
-                '年份':self.select_year,'工程阶段':self.select_prjstage,'工程编号':self.select_prjno,'工程名称':self.select_prjname,
-                '子项':self.select_subentry,'关键字':self.select_keywords}
+                '年份':self.select_year,'工程阶段':self.select_prjstage,'工程编号':self.select_prjno,'工程名称':self.select_prjname,'方案负责人':self.dgn_manager,'项目负责人':self.prj_manager,
+                '子项':self.select_subentry,'关键字':self.select_keywords,'br':self.selection_br}
                 self.selection.div[0].addObj(self.selection_dict[item])
             for item in checkbox:
                 self.checkbox_dict={'专业':self.major_checkbox,'工程阶段':self.prj_stage_checkbox,'工程状态':self.prj_status_checkbox,'人员状态':self.hr_status,'意见类型':self.opinion_type_checkbox}

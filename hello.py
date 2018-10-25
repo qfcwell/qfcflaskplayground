@@ -23,8 +23,16 @@ app.add_url_rule('/prj_design_review_status',view_func=prjquality.prj_design_rev
 app.add_url_rule('/design_prj_review_status',view_func=prjquality.design_prj_review_status)
 app.add_url_rule('/prj_review_review_status',view_func=prjquality.prj_review_review_status)
 app.add_url_rule('/review_prj_review_status',view_func=prjquality.review_prj_review_status)
+app.add_url_rule('/prj_value',view_func=prjquality.prj_value)
+app.add_url_rule('/prjcost',view_func=prjquality.prjcost)
+app.add_url_rule('/prj_bonus',view_func=prjquality.prj_bonus)
+app.add_url_rule('/prj_direct_cost',view_func=prjquality.prj_direct_cost)
+app.add_url_rule('/prj_outsourcing_cost',view_func=prjquality.prj_outsourcing_cost)
+
 
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
     #prjreview()
+
+
