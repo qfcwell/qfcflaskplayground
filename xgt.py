@@ -58,8 +58,20 @@ def xgt1():
                                 <td style="width:16%">2018-6-14</td>
                             </tr>
                             <tr class="sm">
+                                <td class="bold">制作类型</td>
+                                <td class="bold" style="text-align:left;padding-left:10px;" colspan="3">
+                                    <label class="radio-inline">
+                                        <input class="sm" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">全套</label>
+                                    <label class="radio-inline">
+                                        <input class="sm" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">只做模型</label>
+                                    <label class="radio-inline">
+                                        <input class="sm" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">只做渲染</label>
+                                        <label class="radio-inline">
+                                        <input class="sm" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">只做后期</label>
+
+                                </td>
                                 <td class="bold">效果图类型</td>
-                                <td class="bold" style="text-align:left;padding-left:10px;" colspan="7">
+                                <td class="bold" style="text-align:left;padding-left:10px;" colspan="3">
                                     <label class="radio-inline">
                                         <input class="sm" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">单体</label>
                                     <label class="radio-inline">
