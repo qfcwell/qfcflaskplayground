@@ -1011,7 +1011,7 @@ def ThreeDPrinting1():
                                 </td>
                             </tr>
                             <tr id="table_noprj" style="display:none;">
-                                <td class="bold" style="width:12%">航拍内容</td>
+                                <td class="bold" style="width:12%">打印内容</td>
                                 <td class="bold" style="width:88%;" colspan="7">
                                      <input class="form-control select" type="text" id="">
                                 </td>
