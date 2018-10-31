@@ -48,16 +48,32 @@ class CapolHtml_TablePage():
         self.prj_stage_checkbox=''
         self.major_checkbox=''
         self.opinion_type_checkbox=''
-        self.hr_status=self.generate_checkbox('人员状态',lst=['全部','在职','离职'],checked=[1])
+        self.hr_status=self.generate_checkbox('人员状态',lst=['全部','在职','离职'],checked=['在职'])
+        self.review_type=self.generate_checkbox('校审类别',lst=['全部','校对','审核'],checked='all')
         self.tabletitle=div(cl="table-title clearFix")
         self.tabletools=''
         self.table=table(cl="table table-bordered")
         self.form_window=''
         
+
         
+    def percentage_color_desc(self,name,lst=['90%~100%','80%~90%','0~80%']):
+        return div(span(name),
+        span(lst[0],style='background-color:#fff;height:16px; width:72px;border:1px solid #777;text-align:center;display: inline-block;'),
+        span(lst[1],style='background-color:#FFF599;height:16px; width:72px;border:1px solid #777;text-align:center;display: inline-block;'),
+        span(lst[2],style='background-color:#ff9d80;height:16px; width:72px;border:1px solid #777;text-align:center;display: inline-block;'),style="float: right;margin:4px 10px 0px 0px;")
+
+    def percentage_color_asc(self,name,lst=['0~20%','20%~40%','40%~100%']):
+        return div(span(name),
+        span(lst[0],style='background-color:#fff;height:16px; width:72px;border:1px solid #777;text-align:center;display: inline-block;'),
+        span(lst[1],style='background-color:#FFF599;height:16px; width:72px;border:1px solid #777;text-align:center;display: inline-block;'),
+        span(lst[2],style='background-color:#ff9d80;height:16px; width:72px;border:1px solid #777;text-align:center;display: inline-block;'),style="float: right;margin:4px 10px 0px 0px;")
+
 
     def generate_checkbox(self,objname,lst=[],checked=[]):
         if lst:
+            if checked=='all':
+                checked=lst
             obj=div(div(objname,"：&nbsp;&nbsp;",style='height:24px;float:left;font-weight: bold;'),cl="checkbox",style="margin-left: 5px; padding-right:100px;float: left;margin-top:10px;margin-bottom:10px;")
             for item in lst:
                 if item in checked:
@@ -74,13 +90,12 @@ class CapolHtml_TablePage():
             checked=['投标','规划','方案','初步设计','施工图','施工服务','待启动','暂停']
         self.prj_status_checkbox=self.generate_checkbox('工程状态',lst=lst,checked=checked)
 
-    def set_major_checkbox(self,lst=[],checked=[]):
+    def set_major_checkbox(self,lst=[],checked='all'):
         if lst==[]:
             lst=['全部','建筑','结构','给排水','电气','暖通','其他']
-            checked=range(7)
         self.major_checkbox=self.generate_checkbox('专业',lst=lst,checked=checked)
 
-    def set_stage_checkbox(self,lst=[],checked=[]):
+    def set_stage_checkbox(self,lst=[],checked='all'):
         if lst==[]:
             lst=['全部','投标','规划','方案','初设','施工图','施工服务']
             checked=range(7)
@@ -107,7 +122,7 @@ class CapolHtml_TablePage():
                 '子项':self.select_subentry,'关键字':self.select_keywords,'br':self.selection_br}
                 self.selection.div[0].addObj(self.selection_dict[item])
             for item in checkbox:
-                self.checkbox_dict={'专业':self.major_checkbox,'工程阶段':self.prj_stage_checkbox,'工程状态':self.prj_status_checkbox,'人员状态':self.hr_status,'意见类型':self.opinion_type_checkbox}
+                self.checkbox_dict={'专业':self.major_checkbox,'工程阶段':self.prj_stage_checkbox,'工程状态':self.prj_status_checkbox,'人员状态':self.hr_status,'意见类型':self.opinion_type_checkbox,'校审类别':self.review_type}
                 self.selection.div.addObj(self.checkbox_dict[item])
             self.selection.addObj(div(style='clear:both;'))
         else:
@@ -174,7 +189,7 @@ class CapolHtml_TablePage():
 
     def set_tabletitle(self,lst=[],type=0):
         if type==1:
-            self.tabletitle=div(style="text-align: center;font-size: 18px; margin-top:20px; font-weight: bold;")
+            self.tabletitle=div(style="text-align: center;font-size: 18px; margin:20px 0px 10px 0px; font-weight: bold;")
             for item in lst:
                 self.tabletitle.addObj(item)  
         else:

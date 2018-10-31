@@ -6,7 +6,7 @@ excel='./static/质量管控表单.xlsx'
 excel2='./static/项目成本预结算.xlsx'
 
 def prjreview():
-    name='项目校审情况一览表'
+    name='各项目校审一览表'
     h=CapolHtml_TablePage()
     h.head.addObj(meta)
     h.head.addObj(icon)
@@ -19,48 +19,51 @@ def prjreview():
     h.set_nav_lst1([('工程管理','#'),('运营管理5张表','#'),('质量管控','#'),('项目成本预结算','#')])
     h.set_nav_lst2(index=1,lst=[('工程台账','http://pm.capol.cn/projectManage/index.jsp'),('项目关键节点控制一览表','#')])
     h.set_nav_lst2(index=2,lst=[('人员信息表','#'),('人员架构表','#'),('各设计阶段项目一览表','#'),('人员项目表','#'),('项目人员表','#')])
-    h.set_nav_lst2(index=3,lst=[('项目校审情况一览表','./prjreview'),('项目设计人员校审情况一览表','./prj_design_review_status'),('设计人员项目校审情况一览表','./design_prj_review_status'),('项目校审人员校审情况一览表','./prj_review_review_status'),('校审人员项目校审情况一览表','./review_prj_review_status')],active=1)
+    h.set_nav_lst2(index=3,lst=[('各项目校审一览表','./prjreview'),('项目人员校审一览表','./prj_design_review_status'),('人员项目校审一览表','./design_prj_review_status')],active=1)
     h.set_nav_lst2(index=4,lst=[('项目成本预结算一览表','./prjcost'),('项目产值奖金预结算表','./prj_bonus'),('项目直接成本预结算表','./prj_direct_cost'),('项目外部分包预结算表','./prj_outsourcing_cost')],active=0)
     h.set_tab2(lst=[],active=6)
     h.set_status_checkbox()
     h.set_stage_checkbox(['全部','初步设计','施工图'])
     h.set_major_checkbox()
-    h.set_selection(type=1,checkbox=['工程阶段','专业'],selection=['年份','项目所属公司','项目所属部门','工程编号','工程名称'])
+    h.review_type=h.generate_checkbox('校审类别',lst=['全部','校对','审核','抽复查'],checked='all')
+    h.set_selection(type=1,checkbox=['工程阶段','专业','校审类别'],selection=['年份','项目所属公司','项目所属部门','工程编号','工程名称'])
     h.set_tabletitle([name],type=1)
     h.set_tabletools('导出Excel',date=1)
+    h.tabletools.addObj(h.percentage_color_desc(name='处理率、复核通过率：'))
     t=table()
     t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
-    t.read_excel(excel,sheet_name=name,header=[0,1])
+    t.read_excel(excel,sheet_name='项目校审情况一览表',header=[0,1])
     t[0]=thead(tr( 
-        th('序号',rowspan=2),
-        th('工程编号',rowspan=2),
-        th('工程名称',rowspan=2),
-        th('所属公司',rowspan=2),
-        th('所属部门',rowspan=2),
-        th('工程阶段',rowspan=2),
-        th('校审阶段',rowspan=2),
+        th('序号',rowspan=2,style='width:30px;'),
+        th('工程编号',rowspan=2,style='width:80px;'),
+        th('工程名称',rowspan=2,style='width:180px;'),
+        th('所属公司',rowspan=2,style='width:60px;'),
+        th('所属部门',rowspan=2,style='width:60px;'),
+        th('质量管控得分',rowspan=2,style='width:90px;'),
+        th('工程阶段',rowspan=2,style='width:60px;'),
+        th('校审阶段',rowspan=2,style='width:60px;'),
         th('校对',colspan=4),
         th('审核',colspan=4),
-        th('校审意见总计',colspan=3),
         th('抽复查',colspan=4),
-        th('质量管控得分',rowspan=2))
+        th('校审意见总计',colspan=3)
+        )
         ,tr(
-        th('未处理'), th('处理中'),th('已完成'),th('总数'),
-        th('未处理'), th('处理中'),th('已完成'),th('总数'),
-        th('意见总数量'),th('处理率'),th('完成率'),
-        th('意见总数量'), th('未处理'),th('处理中'),th('复核通过')
+        th('意见总数',style='width:60px;'), th('未处理',style='width:60px;'),th('处理中',style='width:60px;'),th('复核通过',style='width:60px;'),
+        th('意见总数',style='width:60px;'), th('未处理',style='width:60px;'),th('处理中',style='width:60px;'),th('复核通过',style='width:60px;'),
+        th('意见总数',style='width:60px;'), th('未处理',style='width:60px;'),th('处理中',style='width:60px;'),th('复核通过',style='width:60px;'),
+        th('意见总数',style='width:60px;'),th('处理率',style='width:60px;'),th('复核通过率',style='width:72px;')
         ),style='border-bottom:2px solid #ccc;')
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=2,style='text-align:left;color:#0068B7;text-decoration: underline;')
     for r in range(2):
         for c in [1,2]:
             t.transform_a(r*4,c,href='./prj_review_record')
-    t.to_int([0,7,8,9,10,11,12,13,14,15,18,19,20,21])
-    t.to_percentage(cols=[16,17],color='desc')
+    t.to_int([0,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
+    t.to_percentage(cols=[21,22],color='desc')
     #t.auto_fill(range(5))
     for r in [0,4]:
-        for c in [0,1,2,3,4,5,15,16,17,18,19,20,21,22]:
+        for c in [0,1,2,3,4,5,6,16,17,18,19,20,21,22,21]:
             t.merge_cells(row=r,col=c,rowspan=4,colspan=0)
     h.table=t
     h.set_form_window(name)
@@ -185,7 +188,7 @@ def prj_value():
     
 
 def prj_design_review_status():
-    name='项目设计人员校审情况一览表'
+    name='项目人员校审一览表'
     h=CapolHtml_TablePage()
     h.head.addObj(meta)
     h.head.addObj(icon)
@@ -198,37 +201,38 @@ def prj_design_review_status():
     h.set_nav_lst1([('工程管理','#'),('运营管理5张表','#'),('质量管控','#'),('项目成本预结算','#')])
     h.set_nav_lst2(index=1,lst=[('工程台账','http://pm.capol.cn/projectManage/index.jsp'),('项目关键节点控制一览表','#')])
     h.set_nav_lst2(index=2,lst=[('人员信息表','#'),('人员架构表','#'),('各设计阶段项目一览表','#'),('人员项目表','#'),('项目人员表','#')])
-    h.set_nav_lst2(index=3,lst=[('项目校审情况一览表','./prjreview'),('项目设计人员校审情况一览表','./prj_design_review_status'),('设计人员项目校审情况一览表','./design_prj_review_status'),('项目校审人员校审情况一览表','./prj_review_review_status'),('校审人员项目校审情况一览表','./review_prj_review_status')],active=2)
+    h.set_nav_lst2(index=3,lst=[('各项目校审一览表','./prjreview'),('项目人员校审一览表','./prj_design_review_status'),('人员项目校审一览表','./design_prj_review_status')],active=2)
     h.set_nav_lst2(index=4,lst=[('项目成本预结算一览表','./prjcost'),('项目产值奖金预结算表','./prj_bonus'),('项目直接成本预结算表','./prj_direct_cost'),('项目外部分包预结算表','./prj_outsourcing_cost')],active=0)
-    h.set_tab2(lst=[],active=6)
+    h.set_tab2(lst=[('设计人员','./prj_design_review_status'),('校审人员','./prj_review_review_status')],active=1)
     h.set_status_checkbox()
     h.set_stage_checkbox(['全部','初步设计','施工图'])
     h.set_major_checkbox()
-    h.set_selection(type=1,checkbox=['工程阶段','专业'],selection=['年份','项目所属公司','项目所属部门','工程编号','工程名称'])
-    h.set_tabletitle([name],type=1)
+    h.set_selection(type=1,checkbox=['工程阶段','专业','校审类别'],selection=['年份','项目所属公司','项目所属部门','工程编号','工程名称'])
+    h.set_tabletitle([name,'（设计人员）'],type=1)
     h.set_tabletools('导出Excel',date=1)
+    h.tabletools.addObj(h.percentage_color_desc(name='处理率、复核通过率：'))
     t=table()
     t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
-    t.read_excel(excel,sheet_name=name,header=[0,1])
+    t.read_excel(excel,sheet_name='项目设计人员校审情况一览表',header=[0,1])
     t[0]=thead(tr( 
-        th('序号',rowspan=2),
-        th('工程编号',rowspan=2),
-        th('工程名称',rowspan=2),
-        th('所属公司',rowspan=2),
-        th('所属部门',rowspan=2),
-        th('工程阶段',rowspan=2),
-        th('姓名',rowspan=2),
-        th('专业',rowspan=2),
-        th('岗位',rowspan=2),
-        th('校审阶段',rowspan=2),
+        th('序号',rowspan=2,style='width:30px;'),
+        th('工程编号',rowspan=2,style='width:80px;'),
+        th('工程名称',rowspan=2,style='width:180px;'),
+        th('所属公司',rowspan=2,style='width:60px;'),
+        th('所属部门',rowspan=2,style='width:60px;'),
+        th('工程阶段',rowspan=2,style='width:60px;'),
+        th('姓名',rowspan=2,style='width:60px;'),
+        th('专业',rowspan=2,style='width:60px;'),
+        th('岗位',rowspan=2,style='width:60px;'),
+        th('校审阶段',rowspan=2,style='width:60px;'),
         th('校对',colspan=4),
         th('审核',colspan=4),
         th('校审意见总计',colspan=3)
         ),tr(
-        th('未处理'), th('处理中'),th('已完成'),th('总数'),
-        th('未处理'), th('处理中'),th('已完成'),th('总数'),
-        th('意见总数量'),th('处理率'),th('完成率')
+        th('意见总数'), th('未处理'),th('处理中'),th('复核通过'),
+        th('意见总数'), th('未处理'),th('处理中'),th('复核通过'),
+        th('意见总数'),th('处理率'),th('复核通过率')
         ),style='border-bottom:2px solid #ccc;')
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=2,style='text-align:left;color:#0068B7;text-decoration: underline;')
@@ -253,7 +257,7 @@ def prj_design_review_status():
     return h.page.render()
 
 def design_prj_review_status():
-    name='设计人员项目校审情况一览表'
+    name='人员项目校审一览表'
     h=CapolHtml_TablePage()
     h.head.addObj(meta)
     h.head.addObj(icon)
@@ -266,39 +270,40 @@ def design_prj_review_status():
     h.set_nav_lst1([('工程管理','#'),('运营管理5张表','#'),('质量管控','#'),('项目成本预结算','#')])
     h.set_nav_lst2(index=1,lst=[('工程台账','http://pm.capol.cn/projectManage/index.jsp'),('项目关键节点控制一览表','#')])
     h.set_nav_lst2(index=2,lst=[('人员信息表','#'),('人员架构表','#'),('各设计阶段项目一览表','#'),('人员项目表','#'),('项目人员表','#')])
-    h.set_nav_lst2(index=3,lst=[('项目校审情况一览表','./prjreview'),('项目设计人员校审情况一览表','./prj_design_review_status'),('设计人员项目校审情况一览表','./design_prj_review_status'),('项目校审人员校审情况一览表','./prj_review_review_status'),('校审人员项目校审情况一览表','./review_prj_review_status')],active=3)
+    h.set_nav_lst2(index=3,lst=[('各项目校审一览表','./prjreview'),('项目人员校审一览表','./prj_design_review_status'),('人员项目校审一览表','./')],active=3)
     h.set_nav_lst2(index=4,lst=[('项目成本预结算一览表','./prjcost'),('项目产值奖金预结算表','./prj_bonus'),('项目直接成本预结算表','./prj_direct_cost'),('项目外部分包预结算表','./prj_outsourcing_cost')],active=0)
-    h.set_tab2(lst=[],active=6)
+    h.set_tab2(lst=[('设计人员','./design_prj_review_status'),('校审人员','./review_prj_review_status')],active=1)
     h.set_status_checkbox()
     h.set_stage_checkbox(['全部','初步设计','施工图'])
     h.set_major_checkbox()
-    h.set_selection(type=1,checkbox=['工程阶段'],selection=['年份','所属公司','一级部门','二级部门'])
-    h.set_tabletitle([name],type=1)
+    h.set_selection(type=1,checkbox=['工程阶段','校审类别'],selection=['年份','所属公司','一级部门','二级部门'])
+    h.set_tabletitle([name,'（设计人员）'],type=1)
     h.set_tabletools('导出Excel',date=1)
+    h.tabletools.addObj(h.percentage_color_desc(name='处理率、复核通过率：'))
     t=table()
     t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
-    t.read_excel(excel,sheet_name=name,header=[0,1])
+    t.read_excel(excel,sheet_name='设计人员项目校审情况一览表',header=[0,1])
     t[0]=thead(tr( 
-        th('序号',rowspan=2),
-        th('工号',rowspan=2),
-        th('姓名',rowspan=2),
-        th('所属公司',rowspan=2),
-        th('一级部门',rowspan=2),
-        th('二级部门',rowspan=2),
-        th('工程编号',rowspan=2),
-        th('工程名称',rowspan=2),
-        th('工程阶段',rowspan=2),
-        th('专业',rowspan=2),
-        th('岗位',rowspan=2),
-        th('校审阶段',rowspan=2),
+        th('序号',rowspan=2,style='width:30px;'),
+        th('工号',rowspan=2,style='width:60px;'),
+        th('姓名',rowspan=2,style='width:60px;'),
+        th('所属公司',rowspan=2,style='width:60px;'),
+        th('一级部门',rowspan=2,style='width:60px;'),
+        th('二级部门',rowspan=2,style='width:60px;'),
+        th('工程编号',rowspan=2,style='width:80px;'),
+        th('工程名称',rowspan=2,style='width:180px;'),
+        th('工程阶段',rowspan=2,style='width:60px;'),
+        th('专业',rowspan=2,style='width:60px;'),
+        th('岗位',rowspan=2,style='width:60px;'),
+        th('校审阶段',rowspan=2,style='width:60px;'),
         th('校对',colspan=4),
         th('审核',colspan=4),
         th('校审意见总计',colspan=3)
         ),tr(
-        th('未处理'), th('处理中'),th('已完成'),th('总数'),
-        th('未处理'), th('处理中'),th('已完成'),th('总数'),
-        th('意见总数量'),th('处理率'),th('完成率')
+        th('意见总数',style='width:60px;'), th('未处理',style='width:60px;'),th('处理中',style='width:60px;'),th('复核通过',style='width:60px;'),
+        th('意见总数',style='width:60px;'), th('未处理',style='width:60px;'),th('处理中',style='width:60px;'),th('复核通过',style='width:60px;'),
+        th('意见总数',style='width:60px;'),th('处理率',style='width:60px;'),th('复核通过率',style='width:72px;')
         ),style='border-bottom:2px solid #ccc;')
     t.set_col_attr(i=6,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=7,style='text-align:left;color:#0068B7;text-decoration: underline;')
@@ -323,7 +328,7 @@ def design_prj_review_status():
     return h.page.render()
 
 def prj_review_review_status():
-    name='项目校审人员校审情况一览表'
+    name='项目人员校审一览表'
     h=CapolHtml_TablePage()
     h.head.addObj(meta)
     h.head.addObj(icon)
@@ -336,37 +341,39 @@ def prj_review_review_status():
     h.set_nav_lst1([('工程管理','#'),('运营管理5张表','#'),('质量管控','#'),('项目成本预结算','#')])
     h.set_nav_lst2(index=1,lst=[('工程台账','http://pm.capol.cn/projectManage/index.jsp'),('项目关键节点控制一览表','#')]) 
     h.set_nav_lst2(index=2,lst=[('人员信息表','#'),('人员架构表','#'),('各设计阶段项目一览表','#'),('人员项目表','#'),('项目人员表','#')])
-    h.set_nav_lst2(index=3,lst=[('项目校审情况一览表','./prjreview'),('项目设计人员校审情况一览表','./prj_design_review_status'),('设计人员项目校审情况一览表','./design_prj_review_status'),('项目校审人员校审情况一览表','./prj_review_review_status'),('校审人员项目校审情况一览表','./review_prj_review_status')],active=4)
+    h.set_nav_lst2(index=3,lst=[('各项目校审一览表','./prjreview'),('项目人员校审一览表','./prj_design_review_status'),('人员项目校审一览表','./design_prj_review_status')],active=2)
     h.set_nav_lst2(index=4,lst=[('项目成本预结算一览表','./prjcost'),('项目产值奖金预结算表','./prj_bonus'),('项目直接成本预结算表','./prj_direct_cost'),('项目外部分包预结算表','./prj_outsourcing_cost')],active=0)
-    h.set_tab2(lst=[],active=6)
+    h.set_tab2(lst=[('设计人员','./prj_design_review_status'),('校审人员','./prj_review_review_status')],active=2)
     h.set_status_checkbox()
     h.set_stage_checkbox(['全部','初步设计','施工图'])
     h.set_major_checkbox()
-    h.set_selection(type=1,checkbox=['工程阶段','专业'],selection=['年份','项目所属公司','项目所属部门','工程编号','工程名称'])
-    h.set_tabletitle([name],type=1)
+    h.set_selection(type=1,checkbox=['工程阶段','专业','校审类别'],selection=['年份','项目所属公司','项目所属部门','工程编号','工程名称'])
+    h.set_tabletitle([name,'（校审人员）'],type=1)
     h.set_tabletools('导出Excel',date=1)
+    h.tabletools.addObj(h.percentage_color_asc(name='待复核百分比：'))
+    h.tabletools.addObj(h.percentage_color_desc(name='及时校对率、及时审核率：'))
     t=table()
     t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
-    t.read_excel(excel,sheet_name=name,header=[0,1])
+    t.read_excel(excel,sheet_name='项目校审人员校审情况一览表',header=[0,1])
     t[0]=thead(tr( 
-        th('序号',rowspan=2),
-        th('工程编号',rowspan=2),
-        th('工程名称',rowspan=2),
-        th('所属公司',rowspan=2),
-        th('所属部门',rowspan=2),
-        th('工程阶段',rowspan=2),
-        th('姓名',rowspan=2),
-        th('专业',rowspan=2),
-        th('岗位',rowspan=2),
-        th('校审阶段',rowspan=2),
+        th('序号',rowspan=2,style='width:30px;'),
+        th('工程编号',rowspan=2,style='width:80px;'),
+        th('工程名称',rowspan=2,style='width:180px;'),
+        th('所属公司',rowspan=2,style='width:60px;'),
+        th('所属部门',rowspan=2,style='width:60px;'),
+        th('工程阶段',rowspan=2,style='width:60px;'),
+        th('姓名',rowspan=2,style='width:60px;'),
+        th('专业',rowspan=2,style='width:60px;'),
+        th('岗位',rowspan=2,style='width:60px;'),
+        th('校审阶段',rowspan=2,style='width:60px;'),
         th('校对',colspan=5),
         th('审核',colspan=5),
         th('校审意见总计',colspan=3)
         ),tr(
-        th('待设计人员处理'), th('待复核'),th('复核通过'),th('总数'),th('及时校对率'),
-        th('待设计人员处理'), th('待复核'),th('复核通过'),th('总数'),th('及时审核率'),
-        th('意见总数量'),th('待复核百分比')
+        th('意见总数',style='width:60px;'),th('待设计人员</br>处理',style='width:72px;'), th('待复核',style='width:60px;'),th('复核通过',style='width:60px;'),th('及时校对率',style='width:72px;'),
+        th('意见总数',style='width:60px;'),th('待设计人员</br>处理',style='width:72px;'), th('待复核',style='width:60px;'),th('复核通过',style='width:60px;'),th('及时审核率',style='width:72px;'),
+        th('意见总数',style='width:60px;'),th('待复核</br>百分比',style='width:60px;')
         ),style='border-bottom:2px solid #ccc;')
     t.set_col_attr(i=1,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=2,style='text-align:left;color:#0068B7;text-decoration: underline;')
@@ -392,7 +399,7 @@ def prj_review_review_status():
     return h.page.render()
 
 def review_prj_review_status():
-    name='校审人员项目校审情况一览表'
+    name='人员项目校审一览表'
     h=CapolHtml_TablePage()
     h.head.addObj(meta)
     h.head.addObj(icon)
@@ -405,39 +412,41 @@ def review_prj_review_status():
     h.set_nav_lst1([('工程管理','#'),('运营管理5张表','#'),('质量管控','#'),('项目成本预结算','#')])
     h.set_nav_lst2(index=1,lst=[('工程台账','http://pm.capol.cn/projectManage/index.jsp'),('项目关键节点控制一览表','#')])
     h.set_nav_lst2(index=2,lst=[('人员信息表','#'),('人员架构表','#'),('各设计阶段项目一览表','#'),('人员项目表','#'),('项目人员表','#')])
-    h.set_nav_lst2(index=3,lst=[('项目校审情况一览表','./prjreview'),('项目设计人员校审情况一览表','./prj_design_review_status'),('设计人员项目校审情况一览表','./design_prj_review_status'),('项目校审人员校审情况一览表','./prj_review_review_status'),('校审人员项目校审情况一览表','./review_prj_review_status')],active=5)
+    h.set_nav_lst2(index=3,lst=[('各项目校审一览表','./prjreview'),('项目人员校审一览表','./prj_design_review_status'),('人员项目校审一览表','./design_prj_review_status')],active=3)
     h.set_nav_lst2(index=4,lst=[('项目成本预结算一览表','./prjcost'),('项目产值奖金预结算表','./prj_bonus'),('项目直接成本预结算表','./prj_direct_cost'),('项目外部分包预结算表','./prj_outsourcing_cost')],active=0)
-    h.set_tab2(lst=[],active=6)
+    h.set_tab2(lst=[('设计人员','./design_prj_review_status'),('校审人员','./review_prj_review_status')],active=2)
     h.set_status_checkbox()
     h.set_stage_checkbox(['全部','初步设计','施工图'])
     h.set_major_checkbox()
-    h.set_selection(type=1,checkbox=['工程阶段'],selection=['年份','所属公司','一级部门','二级部门'])
-    h.set_tabletitle([name],type=1)
+    h.set_selection(type=1,checkbox=['工程阶段','校审类别'],selection=['年份','所属公司','一级部门','二级部门'])
+    h.set_tabletitle([name,'（校审人员）'],type=1)
     h.set_tabletools('导出Excel',date=1)
+    h.tabletools.addObj(h.percentage_color_asc(name='待复核百分比：'))
+    h.tabletools.addObj(h.percentage_color_desc(name='及时校对率、及时审核率：'))
     t=table()
     t.attributes['cl']="table table-bordered table-bordered1"
     t.attributes['id']='prjreview'
-    t.read_excel(excel,sheet_name=name,header=[0,1])
+    t.read_excel(excel,sheet_name='校审人员项目校审情况一览表',header=[0,1])
     t[0]=thead(tr( 
-        th('序号',rowspan=2),
-        th('工号',rowspan=2),
-        th('姓名',rowspan=2),
-        th('所属公司',rowspan=2),
-        th('一级部门',rowspan=2),
-        th('二级部门',rowspan=2),
-        th('工程编号',rowspan=2),
-        th('工程名称',rowspan=2),
-        th('工程阶段',rowspan=2),
-        th('专业',rowspan=2),
-        th('岗位',rowspan=2),
-        th('校审阶段',rowspan=2),
+        th('序号',rowspan=2,style='width:30px;'),
+        th('工号',rowspan=2,style='width:60px;'),
+        th('姓名',rowspan=2,style='width:60px;'),
+        th('所属公司',rowspan=2,style='width:60px;'),
+        th('一级部门',rowspan=2,style='width:60px;'),
+        th('二级部门',rowspan=2,style='width:60px;'),
+        th('工程编号',rowspan=2,style='width:80px;'),
+        th('工程名称',rowspan=2,style='width:180px;'),
+        th('工程阶段',rowspan=2,style='width:60px;'),
+        th('专业',rowspan=2,style='width:60px;'),
+        th('岗位',rowspan=2,style='width:60px;'),
+        th('校审阶段',rowspan=2,style='width:60px;'),
         th('校对',colspan=5),
         th('审核',colspan=5),
         th('校审意见总计',colspan=3)
         ),tr(
-        th('待设计人员处理'), th('待复核'),th('复核通过'),th('总数'),th('及时校对率'),
-        th('待设计人员处理'), th('待复核'),th('复核通过'),th('总数'),th('及时审核率'),
-        th('意见总数量'),th('待复核百分比')
+        th('意见总数',style='width:60px;'),th('待设计人员</br>处理',style='width:72px;'), th('待复核',style='width:60px;'),th('复核通过',style='width:60px;'),th('及时校对率',style='width:72px;'),
+        th('意见总数',style='width:60px;'),th('待设计人员</br>处理',style='width:72px;'), th('待复核',style='width:60px;'),th('复核通过',style='width:60px;'),th('及时审核率',style='width:72px;'),
+        th('意见总数',style='width:60px;'),th('待复核</br>百分比',style='width:60px;')
         ),style='border-bottom:2px solid #ccc;')
     t.set_col_attr(i=6,style='color:#0068B7;text-decoration: underline;')
     t.set_col_attr(i=7,style='text-align:left;color:#0068B7;text-decoration: underline;')
