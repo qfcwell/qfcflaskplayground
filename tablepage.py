@@ -57,7 +57,7 @@ class CapolHtml_TablePage():
         
 
         
-    def percentage_color_desc(self,name,lst=['90%~100%','80%~90%','0~80%']):
+    def percentage_color_desc(self,name,lst=['95%~100%','90%~95%','0~90%']):
         return div(span(name),
         span(lst[0],style='background-color:#fff;height:16px; width:72px;border:1px solid #777;text-align:center;display: inline-block;'),
         span(lst[1],style='background-color:#FFF599;height:16px; width:72px;border:1px solid #777;text-align:center;display: inline-block;'),
@@ -366,11 +366,11 @@ class table(Tag):
                             self.tbody[r][c].attributes['style']='background-color:#ff9d80'
                             print(int(res[2:4]))
                     elif color=='desc':
-                        if int(res[2:4])>=90:
+                        if int(res[2:4])>=95:
                             pass
-                        elif int(res[2:4])>=80:
+                        elif int(res[2:4])>=90:
                             self.tbody[r][c].attributes['style']='background-color:#fff599'
-                        elif int(res[2:4])<80:
+                        elif int(res[2:4])<90:
                             self.tbody[r][c].attributes['style']='background-color:#ff9d80'
                             print(int(res[2:4]))
                 else:
