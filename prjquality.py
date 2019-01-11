@@ -102,7 +102,7 @@ def prj_review_record():
     h.set_stage_checkbox()
     h.set_major_checkbox()
     h.set_opinion_type_checkbox(lst=['全部','图纸深度','图面表达','品质优化','错漏碰缺','一般性规范','强条'],checked=[])
-    h.set_selection(type=1,checkbox=['专业','意见类型'],selection=['工程阶段','子项'])
+    h.set_selection(type=1,checkbox=['专业','意见类型','校审类别'],selection=['工程阶段','子项'])
     h.set_tabletitle([name],type=0)
     h.set_tabletools('导出Excel',date=1)
     t=table()

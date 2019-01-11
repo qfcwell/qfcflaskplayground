@@ -387,6 +387,7 @@ class CapolHtml_ProjectPage(CapolHtml_TablePage):
         self.link_div=''
         self.main_frame=div(style="padding-left:20px;padding-right: 20px;")
 
+
     def generate(self):
         for css in self.css:
             self.page.addCSS(css)
@@ -402,15 +403,8 @@ class CapolHtml_ProjectPage(CapolHtml_TablePage):
         self.main_frame.addObj(self.tabletools)
         self.main_frame.addObj(self.table)
 
-    def set_selection(self,type=0,selection=[],checkbox=[],underline=True):
-        if type==1:
-            if underline:
-                self.selection=div(style="width:100%;border-bottom: 1px solid #ccc;")
-            else:
-                self.selection=div(style="width:100%")
-            self.selection.addObj(div(style="width:100%;float: left;"))
-            for item in selection:
-                self.selection_dict={
+    def set_selection(self,type=0,selection=[],checkbox=[],underline=True,order=[],inputbox=[]):
+        selection_dict={
                 '所属公司':self.select_company,
                 '所属部门':self.select_dept,
                 '项目所属公司':self.select_prjcomp,
@@ -421,10 +415,18 @@ class CapolHtml_ProjectPage(CapolHtml_TablePage):
                 '工程编号':self.select_prjno,
                 '工程名称':self.select_prjname,
                 '关键字':self.select_keywords}
-                self.selection.div.addObj(self.selection_dict[item])
+        checkbox_dict={'专业':self.major_checkbox,'工程阶段':self.prj_stage_checkbox,'工程状态':self.prj_status_checkbox,'人员状态':self.hr_status,'意见类型':self.opinion_type_checkbox,'校审类别':self.review_type}
+        intputbox_dict={}
+        if type==1:
+            if underline:
+                self.selection=div(style="width:100%;border-bottom: 1px solid #ccc;")
+            else:
+                self.selection=div(style="width:100%")
+            self.selection.addObj(div(style="width:100%;float: left;"))
+            for item in selection:
+                self.selection.div.addObj(selection_dict[item])
             for item in checkbox:
-                self.checkbox_dict={'专业':self.major_checkbox,'工程阶段':self.prj_stage_checkbox,'工程状态':self.prj_status_checkbox,'人员状态':self.hr_status,'意见类型':self.opinion_type_checkbox}
-                self.selection.div.addObj(self.checkbox_dict[item])
+                self.selection.div.addObj(checkbox_dict[item])
             self.selection.addObj(div(style='clear:both;'))
         else:
             self.selection.addObj(self.select_year)
